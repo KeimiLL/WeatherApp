@@ -1,14 +1,14 @@
-import { View, Text, StyleSheet, Alert, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, Alert, ActivityIndicator, Image } from "react-native";
 import React, {useState, useEffect} from "react";
 
 const SeniorItem = ({factor, txt1, txt2, isBlack}) => {
-    const factor = factor
-    const isBlack = isBlack
+    const fact = factor
+    // const isBlack = isBlack
     return (           
         <View style={[styles.infoView, {if(isBlack){styles.infoBlack}}]}>
             <Image 
                 style={styles.specIcon}
-                source={require(`../assets/${factor}.png`)}
+                source={require(`../../assets/pressure.png`)}
             />
             <Text style={[styles.infoText, {if(isBlack){styles.infoBlackText}}]}>{txt1}</Text>
             <Text style={styles.infoText}>{txt2}</Text>
@@ -16,7 +16,7 @@ const SeniorItem = ({factor, txt1, txt2, isBlack}) => {
     )
 }
 
-export default SeniorItem
+export default SeniorItem;
 
 const styles = StyleSheet.create({
     infoView: {

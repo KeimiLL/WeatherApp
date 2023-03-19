@@ -3,6 +3,8 @@ import React from 'react'
 import SearchBar from './SearchBar'
 import DateTime from './DateTime'
 import moment from 'moment'
+import Item from './Item'
+import SeniorItem from './seniorMode/SeniorItem'
 
 const windowWidth = Dimensions.get('window').width;
 moment.locale('pl');
@@ -74,22 +76,24 @@ const Weather = ({data, getData, isEnabled}) => {
                 right: 30,
                 }}>
                 <View style={styles.infoSlide}>
-                    <View style={styles.infoView}>
+                    {/* <View style={styles.infoView}>
                         <Image 
                             style={styles.specIcon}
                             source={require('../assets/pressure.png')}
                         />
                         <Text style={styles.infoText}>{pressure} hPa</Text>
                         <Text style={styles.infoText}>Pressure</Text>
-                    </View>
-                    <View style={[styles.infoView, styles.infoBlack]}>
+                    </View> */}
+                    <Item iconPath={require("../assets/pressure.png")} factor={pressure} txt1={" hPa"} txt2={"Pressure"} isBlack={false} />
+                    {/* <View style={[styles.infoView, styles.infoBlack]}>
                         <Image 
                             style={styles.specIcon}
                             source={require('../assets/humidity.png')}
                         />
                         <Text style={[styles.infoText, styles.infoBlackText]}>{humidity} %</Text>
                         <Text style={[styles.infoText, styles.infoBlackText]}>Humidity</Text>
-                    </View>
+                    </View> */}
+                     <Item iconPath={require("../assets/humidity.png")} factor={humidity} txt1={" %"} txt2={"Humidity"} isBlack={true} />
                 </View>
                 <View style={styles.infoSlide}>                    
                     <View style={styles.infoView}>

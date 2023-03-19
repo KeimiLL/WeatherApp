@@ -1,22 +1,20 @@
-import { View, Text, StyleSheet, Alert, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, Alert, ActivityIndicator, Image } from "react-native";
 import React, {useState, useEffect} from "react";
 
-const Item = ({factor, txt1, txt2, isBlack}) => {
-    const factor = factor
-    const isBlack = isBlack
+const Item = ({iconPath, factor, txt1, txt2, isBlack}) => {
     return (           
-        <View style={[styles.infoView, {if(isBlack){styles.infoBlack}}]}>
+        <View style={[styles.infoView, isBlack ? styles.infoBlack : null]}>
             <Image 
                 style={styles.specIcon}
-                source={require(`../assets/${factor}.png`)}
+                source={iconPath}
             />
-            <Text style={[styles.infoText, {if(isBlack){styles.infoBlackText}}]}>{txt1}</Text>
-            <Text style={styles.infoText}>{txt2}</Text>
+            <Text style={[styles.infoText, isBlack ? styles.infoBlackText : null]}>{factor}{txt1}</Text>
+            <Text style={[styles.infoText, isBlack ? styles.infoBlackText : null]}>{txt2}</Text>
         </View>
     )
 }
 
-export default Item
+export default Item;
 
 const styles = StyleSheet.create({
     infoView: {
