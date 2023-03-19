@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, Image, ScrollView, Dimensions} from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Image, ScrollView, Dimensions, Platform} from 'react-native'
 import React from 'react'
 import SearchBar from './SearchBar'
 import DateTime from './DateTime'
@@ -33,19 +33,60 @@ const Weather = ({data, getData, isEnabled}) => {
     const sunRiseSecs = sunr.getSeconds()
     const sunRise = `${sunRiseHours}:${sunRiseMins}:${sunRiseSecs}`
 
+    // isEnabled = true
+
     if (isEnabled) {
         return (
             <SafeAreaView style={styles.container}>
-                <Text>Dziala</Text>
-            </SafeAreaView>
+            <SearchBar getData={getData} isEnabled={isEnabled}/>
+            <DateTime isEnabled={isEnabled}/>
+            <View style={styles.header}>
+                <Text style={styles.title}>{name}</Text>
+                <Image 
+                    style={styles.icon}
+                    source={{uri: `http://openweathermap.org/img/wn/${icon}.png`}}
+                />
+            </View>
+            <Text style={styles.description}>{description}</Text>
+            <View style={styles.temp}>                
+                <Text style={styles.currTemp}>{temp.toFixed(0)}°C</Text>
+            </View>
+
+            <View style={styles.seniorAllInfo}>
+                <SeniorItem 
+                    iconPath={require("../assets/pressure.png")} 
+                    factor={pressure} 
+                    txt1={" hPa"} 
+                    txt2={"Pressure"} 
+                    isBlack={false} />
+                <SeniorItem 
+                    iconPath={require("../assets/clouds.png")} 
+                    factor={all} 
+                    txt1={" %"} 
+                    txt2={"Cloudiness"} 
+                    isBlack={true} /> 
+                <SeniorItem 
+                    iconPath={require("../assets/sunrise.png")} 
+                    factor={moment(new Date(sunrise*1000)).format('HH:mm:ss')} 
+                    txt1={""} 
+                    txt2={"Sunrise"} 
+                    isBlack={false} />
+                <SeniorItem 
+                    iconPath={require("../assets/sunset.png")} 
+                    factor={moment(new Date(sunset*1000)).format('HH:mm:ss')} 
+                    txt1={""} 
+                    txt2={"Sunset"} 
+                    isBlack={true} />
+            </View>
+        </SafeAreaView>
         )
     }
 
 
     return (
         <SafeAreaView style={styles.container}>
-            <SearchBar getData={getData}/>
-            <DateTime />
+            <SearchBar getData={getData} isEnabled={isEnabled}/>
+            <DateTime isEnabled={isEnabled}/>
             <View style={styles.header}>
                 <Text style={styles.title}>{name}</Text>
                 <Image 
@@ -76,84 +117,62 @@ const Weather = ({data, getData, isEnabled}) => {
                 right: 30,
                 }}>
                 <View style={styles.infoSlide}>
-                    {/* <View style={styles.infoView}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/pressure.png')}
-                        />
-                        <Text style={styles.infoText}>{pressure} hPa</Text>
-                        <Text style={styles.infoText}>Pressure</Text>
-                    </View> */}
-                    <Item iconPath={require("../assets/pressure.png")} factor={pressure} txt1={" hPa"} txt2={"Pressure"} isBlack={false} />
-                    {/* <View style={[styles.infoView, styles.infoBlack]}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/humidity.png')}
-                        />
-                        <Text style={[styles.infoText, styles.infoBlackText]}>{humidity} %</Text>
-                        <Text style={[styles.infoText, styles.infoBlackText]}>Humidity</Text>
-                    </View> */}
-                     <Item iconPath={require("../assets/humidity.png")} factor={humidity} txt1={" %"} txt2={"Humidity"} isBlack={true} />
+                    <Item 
+                        iconPath={require("../assets/pressure.png")} 
+                        factor={pressure} 
+                        txt1={" hPa"} 
+                        txt2={"Pressure"} 
+                        isBlack={false} />
+                    <Item 
+                        iconPath={require("../assets/humidity.png")} 
+                        factor={humidity} 
+                        txt1={" %"} 
+                        txt2={"Humidity"} 
+                        isBlack={true} />
                 </View>
-                <View style={styles.infoSlide}>                    
-                    <View style={styles.infoView}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/wind.png')}
-                        />
-                        <Text style={styles.infoText}>{(speed*3.6).toFixed(1)} km/h</Text>
-                        <Text style={styles.infoText}>Wind</Text>
-                    </View>
-                    <View style={[styles.infoView, styles.infoBlack]}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/visibility.png')}
-                        />
-                        <Text style={[styles.infoText, styles.infoBlackText]}>{(visibility*0.001).toFixed(1)}km</Text>
-                        <Text style={[styles.infoText, styles.infoBlackText]}>Visibility</Text>
-                    </View>
+                <View style={styles.infoSlide}>      
+                    <Item 
+                        iconPath={require("../assets/wind.png")} 
+                        factor={(speed*3.6).toFixed(1)} 
+                        txt1={" km/h"} 
+                        txt2={"Wind"} 
+                        isBlack={false} />
+                    <Item 
+                        iconPath={require("../assets/visibility.png")} 
+                        factor={(visibility*0.001).toFixed(1)} 
+                        txt1={" km"} 
+                        txt2={"Visibility"} 
+                        isBlack={true} />             
                 </View>
                 <View style={styles.infoSlide}>
-                    <View style={styles.infoView}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/sunrise.png')}
-                        />
-                        <Text style={styles.infoText}>{moment(new Date(sunrise*1000)).format('HH:mm:ss')}</Text>
-                        <Text style={styles.infoText}>Sunrise</Text>
-                    </View>
-                    <View style={[styles.infoView, styles.infoBlack]}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/sunset.png')}
-                        />
-                        <Text style={[styles.infoText, styles.infoBlackText]}>{moment(new Date(sunset*1000)).format('HH:mm:ss')}</Text>
-                        <Text style={[styles.infoText, styles.infoBlackText]}>Sunset</Text>
-                    </View>
+                    <Item 
+                        iconPath={require("../assets/sunrise.png")} 
+                        factor={moment(new Date(sunrise*1000)).format('HH:mm:ss')} 
+                        txt1={""} 
+                        txt2={"Sunrise"} 
+                        isBlack={false} />
+                    <Item 
+                        iconPath={require("../assets/sunset.png")} 
+                        factor={moment(new Date(sunset*1000)).format('HH:mm:ss')} 
+                        txt1={""} 
+                        txt2={"Sunset"} 
+                        isBlack={true} />
                 </View>
                 <View style={styles.infoSlide}>
-                    <View style={styles.infoView}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/temp.png')}
-                        />
-                        <Text style={styles.infoText}>{feels_like.toFixed(1)}°C</Text>
-                        <Text style={styles.infoText}>Feels like</Text>
-                    </View>
-                    <View style={[styles.infoView, styles.infoBlack]}>
-                        <Image 
-                            style={styles.specIcon}
-                            source={require('../assets/clouds.png')}
-                        />
-                        <Text style={[styles.infoText, styles.infoBlackText]}>{all} %</Text>
-                        <Text style={[styles.infoText, styles.infoBlackText]}>Cloudiness</Text>
-                    </View>
+                    <Item 
+                        iconPath={require("../assets/temp.png")} 
+                        factor={feels_like.toFixed(1)} 
+                        txt1={"°C"} 
+                        txt2={"Feels like"} 
+                        isBlack={false} />
+                    <Item 
+                        iconPath={require("../assets/clouds.png")} 
+                        factor={all} 
+                        txt1={" %"} 
+                        txt2={"Cloudiness"} 
+                        isBlack={true} />
                 </View>
             </ScrollView>
-
-            <View>
-                <Text>Switch to señor mode</Text>
-            </View>
         </SafeAreaView>
     )
 }
@@ -186,7 +205,7 @@ const styles = StyleSheet.create({
         height: 80        
     },
     currTemp: {
-        fontSize: 160,
+        fontSize: Platform.OS === 'android' ? 100 : 170,
         letterSpacing: -5,
         fontWeight: '500',
         textAlign: 'center'
@@ -198,10 +217,10 @@ const styles = StyleSheet.create({
     },
     paragraphView: {
         paddingLeft: 30,
-        paddingBottom: 10
+        paddingBottom: Platform.OS === 'android' ? 0 : 10
     },
     paragraph: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '500'
     },
     infoSlide: {
@@ -211,43 +230,15 @@ const styles = StyleSheet.create({
         width: windowWidth - 60,   
         backgroundColor: '#FFE141',     
     },
-    infoView: {
-        marginTop: 50,
-        width: 150,
-        borderColor: '#000',
-        borderWidth: 4,
-        padding: 0,
-        borderRadius: 15,
-        justifyContent: 'center',
-        height: 150,
-        backgroundColor: '#FFE141',
-
-        shadowColor: '#000',
-        shadowOffset: {width: 2, height: 2},
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 5,
-    },
-    infoBlack: {
-        backgroundColor: '#000',
-        color: '#FFE141',
-    },
-    specIcon: {
-        height: 50,
-        width: 50,
-        marginLeft: 46,
-        marginBottom: 10,
-    },
-    infoText: {
-        textAlign: 'center',
-        fontSize: 18
-    },
-    infoBlackText: {
-        backgroundColor: '#000',
-        color: '#FFE141',
-    },
 
     scrollView: {
-        height: 100
+        flexGrow: 0,
+        height: 270
+    },
+    seniorAllInfo: {
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        height: Platform.OS === 'android' ? 250 : 300,
+        alignItems: 'center'
     }
 })

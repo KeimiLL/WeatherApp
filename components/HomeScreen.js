@@ -5,7 +5,7 @@ import DateTime from "./DateTime";
 
 const API_KEY = 'e2ebdbc046c7256b2a833cae33659911'
 
-const Home = ({isEnabled}) => {
+const Home = ({ isEnabled }) => {
     const [data, setData] = useState(null)    
     const [isDataLoaded, setIsDataLoaded] = useState(false)    
 

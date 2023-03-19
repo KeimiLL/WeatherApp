@@ -1,17 +1,16 @@
 import { View, Text, StyleSheet, Alert, ActivityIndicator, Image } from "react-native";
 import React, {useState, useEffect} from "react";
 
-const SeniorItem = ({factor, txt1, txt2, isBlack}) => {
-    const fact = factor
-    // const isBlack = isBlack
+const SeniorItem = ({iconPath, factor, txt1, txt2, isBlack}) => {
     return (           
-        <View style={[styles.infoView, {if(isBlack){styles.infoBlack}}]}>
+        <View style={[styles.infoView, isBlack ? styles.infoBlack : null]}>
             <Image 
                 style={styles.specIcon}
-                source={require(`../../assets/pressure.png`)}
+                source={iconPath}
             />
-            <Text style={[styles.infoText, {if(isBlack){styles.infoBlackText}}]}>{txt1}</Text>
-            <Text style={styles.infoText}>{txt2}</Text>
+            <Text style={[styles.infoText, isBlack ? styles.infoBlackText : null]}>{txt2}</Text>
+            <Text style={[styles.infoText, isBlack ? styles.infoBlackText : null]}>{factor}{txt1}</Text>
+            
         </View>
     )
 }
@@ -20,15 +19,17 @@ export default SeniorItem;
 
 const styles = StyleSheet.create({
     infoView: {
-        marginTop: 50,
-        width: 150,
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: 350,
         borderColor: '#000',
         borderWidth: 4,
         padding: 0,
         borderRadius: 15,
-        justifyContent: 'center',
-        height: 150,
+        justifyContent: 'space-between',
+        height: Platform.OS === 'android' ? 60 : 70,
         backgroundColor: '#FFE141',
+        padding: Platform.OS === 'android' ? 5 : 10,
 
         shadowColor: '#000',
         shadowOffset: {width: 2, height: 2},
@@ -39,12 +40,10 @@ const styles = StyleSheet.create({
     specIcon: {
         height: 50,
         width: 50,
-        marginLeft: 46,
-        marginBottom: 10,
     },
     infoText: {
         textAlign: 'center',
-        fontSize: 18
+        fontSize: 28
     },
 
     infoBlackText: {

@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const SearchBar = ({ getData }) => {
+const SearchBar = ({ getData, isEnabled }) => {
     const [city, setCity] = useState('')
+    // isEnabled = true
     return (
-        <View style={styles.bar}>
+        <View style={[styles.bar, isEnabled ? styles.barSenior : null]}>
             <TextInput 
                 placeholder='Enter city name'
                 value={city}
                 onChangeText={(text) => setCity(text)}
-                style={styles.textInput}
+                style={[styles.textInput, isEnabled ? styles.textInputSenior : null]}
             />
             <TouchableOpacity
                 onPress={() => getData(city)}
                 activeOpacty={0.5}>
                 <Image 
-                    style={styles.icon}
+                    style={[styles.icon, isEnabled ? styles.iconSenior : null]}
                     source={require('../assets/search.png')}
                 />
             </TouchableOpacity>            
@@ -48,6 +49,24 @@ const styles = StyleSheet.create({
         height: 21
     },
     textInput: {
-        width: '80%'
+        width: '80%',
+        fontSize: 17,
+    },
+
+
+
+    barSenior: {
+        paddingVertical: 3,
+        marginHorizontal: 15,
+        marginBottom: 15,
+        paddingHorizontal: 10,
+    },
+    iconSenior: {
+        width: 27,
+        height: 27
+    },
+    textInputSenior: {
+        width: '80%',
+        fontSize: 27,
     }
 })

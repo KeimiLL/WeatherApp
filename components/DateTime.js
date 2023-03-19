@@ -4,12 +4,14 @@ import dayjs from "dayjs";
 
 const windowWidth = Dimensions.get('window').width;
 
-const DateTime = () => {
+const DateTime = ({ isEnabled }) => {
     const [currDate, setCurrDate] = useState(dayjs())
     const weekDays = [ "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday" ]
     const months = [ "January", "February", "March", "April", 
                     "May", "June", "July", "August", "September", "October", 
                     "November", "December" ]
+
+    // isEnabled = true
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -31,10 +33,10 @@ const DateTime = () => {
     return (
         <View style={styles.container}>
             <View style={styles.dateInfo}>
-                <Text style={styles.dateInfoText}>{currDate.format("HH:mm")}</Text>        
+                <Text style={[styles.dateInfoText, isEnabled ? styles.dateInfoTextSenior : null]}>{currDate.format("HH:mm")}</Text>        
             </View>
             <View style={styles.dateInfo}>
-                <Text style={styles.dateInfoText}>{currDate.format("dddd, DD MMMM")}</Text>            
+                <Text style={[styles.dateInfoText, isEnabled ? styles.dateInfoTextSenior : null]}>{currDate.format("dddd, DD MMMM")}</Text>            
             </View>
         </View>        
     )
@@ -64,6 +66,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingVertical: 5,
         paddingHorizontal: 15,
-        color: '#FFE141'
+        color: '#FFE141',
+        fontSize: 20
+    },
+
+
+    dateInfoTextSenior: {
+        fontSize: Platform.OS === 'android' ? 20 : 30
     }
 })

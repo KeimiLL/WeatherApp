@@ -18,7 +18,7 @@ export default Item;
 
 const styles = StyleSheet.create({
     infoView: {
-        marginTop: 50,
+        marginTop: Platform.OS === 'android' ? 30 : 50,
         width: 150,
         borderColor: '#000',
         borderWidth: 4,
