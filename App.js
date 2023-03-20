@@ -3,7 +3,9 @@ import { StyleSheet, View, Switch, Text } from 'react-native';
 import Home from "./components/HomeScreen";
 
 export default function App() {
+  // current state of switch and function that updates it
   const [isEnabled, setIsEnabled] = useState(false)
+  // current state of switchText and function that updates it
   const [text, setText] = useState('Señor mode OFF')
 
   const toggleSwitch = () => {

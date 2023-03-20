@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet, Alert, ActivityIndicator } from "react-native";
 import React, {useState, useEffect} from "react";
 import Weather from "./Weather";
-import DateTime from "./DateTime";
 
+// api key from openweathermap
 const API_KEY = 'e2ebdbc046c7256b2a833cae33659911'
 
 const Home = ({ isEnabled }) => {
+    // current state of weatcher data and function that updates it
     const [data, setData] = useState(null)    
+    // current state of boolean that check if is datta loaded and function that updates it
     const [isDataLoaded, setIsDataLoaded] = useState(false)    
 
     const getData = async (city) => {
@@ -31,9 +33,7 @@ const Home = ({ isEnabled }) => {
 
     if (!isDataLoaded) {
         return (
-            <View style={styles.container}>                
-                <ActivityIndicator size='large' color='red'/>
-            </View>
+            <View style={styles.container}></View>
         )
     }
 

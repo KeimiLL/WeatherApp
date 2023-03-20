@@ -6,10 +6,12 @@ import moment from 'moment'
 import Item from './Item'
 import SeniorItem from './seniorMode/SeniorItem'
 
+//get window width
 const windowWidth = Dimensions.get('window').width;
+//setting the location for formatting
 moment.locale('pl');
 
-const Weather = ({data, getData, isEnabled}) => {
+const Weather = ({data, getData, isEnabled}) => { 
     const {
         name,
         visibility,
@@ -19,8 +21,9 @@ const Weather = ({data, getData, isEnabled}) => {
         main: {pressure, temp, humidity, feels_like, temp_min, temp_max},
         wind: {speed},
         sys: {sunrise, sunset},
-    } = data;
+    } = data;  // saving data from api to variables
 
+    //sunrise and sunset time formatting
     const suns = new Date(sunset*1000)
     const sunSetHours = suns.getHours()
     const sunSetMins = suns.getMinutes()
@@ -35,6 +38,7 @@ const Weather = ({data, getData, isEnabled}) => {
 
     // isEnabled = true
 
+    //if the switch is off, we have a normal view, if the switch is on, we have a view for seniors
     if (isEnabled) {
         return (
             <SafeAreaView style={styles.container}>

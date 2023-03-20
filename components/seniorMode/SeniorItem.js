@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Alert, ActivityIndicator, Image } from "react-native";
-import React, {useState, useEffect} from "react";
-
+import { View, Text, StyleSheet, Image } from "react-native";
+import React from "react";
+// item in senior view
 const SeniorItem = ({iconPath, factor, txt1, txt2, isBlack}) => {
-    return (           
+    return (           //properly added styling for black and light elements
         <View style={[styles.infoView, isBlack ? styles.infoBlack : null]}>
             <Image 
                 style={styles.specIcon}

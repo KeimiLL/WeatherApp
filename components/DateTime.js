@@ -4,8 +4,9 @@ import dayjs from "dayjs";
 
 const windowWidth = Dimensions.get('window').width;
 
+//component displaying the date and time in the application
 const DateTime = ({ isEnabled }) => {
-    const [currDate, setCurrDate] = useState(dayjs())
+    const [currDate, setCurrDate] = useState(dayjs()) //stored state with hook so I can change up data every 60 secs
     const weekDays = [ "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday" ]
     const months = [ "January", "February", "March", "April", 
                     "May", "June", "July", "August", "September", "October", 

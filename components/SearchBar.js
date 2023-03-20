@@ -9,11 +9,11 @@ const SearchBar = ({ getData, isEnabled }) => {
             <TextInput 
                 placeholder='Enter city name'
                 value={city}
-                onChangeText={(text) => setCity(text)}
+                onChangeText={(text) => setCity(text)} // setCity updates the city name in the application when it changes
                 style={[styles.textInput, isEnabled ? styles.textInputSenior : null]}
             />
             <TouchableOpacity
-                onPress={() => getData(city)}
+                onPress={() => getData(city)} //getData updates the weather data in the application when it changes
                 activeOpacty={0.5}>
                 <Image 
                     style={[styles.icon, isEnabled ? styles.iconSenior : null]}
