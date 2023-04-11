@@ -15,7 +15,7 @@ A weather forecast application that uses the OpenWeatherMap API to download data
 
 ## Design
 <p align="center">
-<img src="/assets/ss1.png" alt="ss1" width="30%"/>
-<img src="/assets/ss2.png" alt="ss2" width="30%"/>
-<img src="/assets/ss3.png" alt="ss3" width="30%"/>
+<img src="/assets/ss1.jpg" alt="ss1" width="30%"/>
+<img src="/assets/ss2.jpg" alt="ss2" width="30%"/>
+<img src="/assets/ss3.jpg" alt="ss3" width="30%"/>
 </p>
